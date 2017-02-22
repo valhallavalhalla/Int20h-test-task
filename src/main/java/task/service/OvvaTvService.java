@@ -1,5 +1,6 @@
 package task.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,8 @@ import java.time.LocalDate;
 @Service
 public class OvvaTvService {
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
 
     public ProgramsData sendProgramsDataRequest(Language language, Channel channel, LocalDate localDate) {
         String url = "https://api.ovva.tv/v2/" + language.getValue() + "/tvguide/"

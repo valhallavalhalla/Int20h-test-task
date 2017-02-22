@@ -14,6 +14,7 @@ import com.vk.api.sdk.objects.wall.responses.PostResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.util.List;
 
@@ -29,11 +30,12 @@ public class VkService {
     @Value("${vk.api.redirect_uri}")
     private String redirectUri;
 
-    private VkApiClient vk = initialize();
+    private VkApiClient vk;
 
-    private VkApiClient initialize() {
+    @PostConstruct
+    private void initialize() {
         TransportClient transportClient = HttpTransportClient.getInstance();
-        return new VkApiClient(transportClient);
+        vk = new VkApiClient(transportClient);
     }
 
     public void postImage(File file, String code) throws ClientException, ApiException {
